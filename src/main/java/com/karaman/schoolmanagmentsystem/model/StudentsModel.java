@@ -14,14 +14,15 @@ import java.util.Set;
 @Table(name = "students")
 public class StudentsModel{
 
-    public StudentsModel(Long tcNumber, String name, String surName, Long schoolNumber, Long schoolClass, Long phoneNumber, String mail, boolean gender, Date recordTime) {
+    public StudentsModel(String password,Long tcNumber, String name, String surName, Long schoolNumber, Long schoolClass, Long phoneNumber, String mail, boolean gender, Date recordTime) {
         this.tcNumber = tcNumber;
         this.name = name;
         this.surName = surName;
+        this.mail = mail;
+        this.password=password;
         this.schoolNumber = schoolNumber;
         this.schoolClass = schoolClass;
         this.phoneNumber = phoneNumber;
-        this.mail = mail;
         this.gender = gender;
         this.recordTime = recordTime;
     }
@@ -59,6 +60,9 @@ public class StudentsModel{
     @Column(name = "gender")
     private boolean gender;
 
+    @Column(name = "password")
+    private String password;
+
     @Temporal(TemporalType.DATE)
     private Date recordTime;
 
@@ -69,6 +73,7 @@ public class StudentsModel{
     public Set<LessonsModel> getLessonModel() {
         return lessons;
     }
+
     public void setBooks(Set<LessonsModel> lessons) {
         this.lessons = lessons;
         for(LessonsModel b : lessons) {

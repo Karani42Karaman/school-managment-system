@@ -42,29 +42,58 @@
 
 				<h1>Registration</h1>
 
-				<form th:action="@{/registration}" method="post" th:object="${user}">
+				<form th:action="@{/registration}" method="post"  >
 					<div class="form-group">
-						<label class="control-label" for="firstName"> First Name </label>
-						<input id="firstName" class="form-control" th:field="*{user.name}"
+						<label class="control-label" for="name"> First Name </label>
+						<input id="name"  name="name"  class="form-control"
 							required autofocus="autofocus" />
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="lastName"> Last Name </label> <input
-							id="lastName" class="form-control" th:field="*{user.surName}"
+						<label class="control-label" for="surName"> Last Name </label> <input
+							id="surName"  name="surName" class="form-control"
 							required autofocus="autofocus" />
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="email"> Email </label> <input
-							id="email" class="form-control" th:field="*{user.tcNumber}" required
+						<label class="control-label" for="tcNumber">Tc Number </label> <input
+							id="tcNumber"  name="tcNumber" class="form-control"
+							required autofocus="autofocus" />
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="mail"> Email </label> <input
+							id="mail" name="mail" class="form-control"   required
 							autofocus="autofocus" />
 					</div>
 
 					<div class="form-group">
 						<label class="control-label" for="password"> Password </label> <input
-							id="password" class="form-control" type="password"
-							th:field="*{ user.mail}" required autofocus="autofocus" />
+							id="password" name="password" class="form-control" type="password"
+							  required autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="schoolNumber"> schoolNumber </label> <input
+							id="schoolNumber" name="schoolNumber" class="form-control" type="password"
+							required autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="schoolClass"> schoolClass </label> <input
+							id="schoolClass" name="schoolClass" class="form-control" type="password"
+							required autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="phoneNumber"> phoneNumber </label> <input
+							id="phoneNumber" name="phoneNumber" class="form-control" type="password"
+							required autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="gender"> gender </label> <input
+							id="gender" name="gender" class="form-control" type="password"
+							required autofocus="autofocus" />
 					</div>
 
 					<div class="form-group">

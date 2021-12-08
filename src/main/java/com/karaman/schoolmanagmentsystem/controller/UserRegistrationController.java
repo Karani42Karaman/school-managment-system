@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @Controller
+@RequestMapping("/registration")
 public class UserRegistrationController {
 
     private IStudentsService userService;
@@ -17,15 +20,17 @@ public class UserRegistrationController {
     }
 
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @GetMapping
     public String showRegistrationForm(Model model, @ModelAttribute StudentsModel registrationDto) {
         model.addAttribute("user", registrationDto);
         return "registration";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @PostMapping
     public String registerUserAccount(@ModelAttribute("user") StudentsModel registrationDto) {
-        userService.save(registrationDto);
+        Date date = new Date();
+        registrationDto.setRecordTime(date);
+        userService.saveStudent(registrationDto);
         return "redirect:/registration?success";
     }
 }

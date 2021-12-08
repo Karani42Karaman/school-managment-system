@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface IStudentsService extends UserDetailsService {
+
     StudentsModel save(StudentsModel registrationDto);
     List<StudentsModel> getAllStudents();
     StudentsModel saveStudent(StudentsModel   studentsModel);
