@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/student")
 public class StudentController {
 
-
+    @GetMapping("/getStudentPage")
+    public String showStudent() {
+        return "studentShow";
+    }
 
 }

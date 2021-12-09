@@ -32,13 +32,17 @@ public class LoginController {
         if(loginDto.getRole().equals("student")){
             List<StudentsModel> studentList =  studentsService.getAllStudents();
             for (StudentsModel studentsModel : studentList) {
-                if (studentsModel.getTcNumber().equals (loginDto.getTcNo()) && studentsModel.getPassword().equals(loginDto.getPassword())) {
-                    return "teacher";
+                if(studentsModel.getTcNumber().equals(loginDto.getTcNo()) && studentsModel.getPassword().equals(loginDto.getPassword())){
+                    return "redirect:/student/getStudentPage";
                 }
             }
-        }else{
+        }else if(loginDto.getRole().equals("teacher")){
+            return "redirect:/teacher/getTeacherPage";//yönlendirme yapılır url gibi düşün
+        }else if(loginDto.getRole().equals("admin")){
+            return "redirect:/management/getManagemetPage";
         }
-        return "redirect:/teacher/getTeacherPage";
+            return "redirect:/login/getLogin";
+
     }
 
 }

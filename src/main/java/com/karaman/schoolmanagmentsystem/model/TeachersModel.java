@@ -1,6 +1,7 @@
 package com.karaman.schoolmanagmentsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
@@ -39,4 +40,18 @@ public class TeachersModel   {
 
     @Temporal(TemporalType.DATE)
     private Date recordTime;
+
+
+    // bir den falz öğretmene bir müdür bakar
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "manager_model_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private ManagerModel managerModel;
+
+
+    //bir dersi birden fazla öğretmen  verebilir
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "lesson_model_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private LessonsModel lessonsModel;
 }

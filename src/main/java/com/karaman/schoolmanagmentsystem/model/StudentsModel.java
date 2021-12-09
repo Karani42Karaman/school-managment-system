@@ -1,25 +1,26 @@
 package com.karaman.schoolmanagmentsystem.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 @Data
 @Entity
 @Table(name = "students")
-public class StudentsModel{
+public class StudentsModel {
 
-    public StudentsModel(String password,Long tcNumber, String name, String surName, Long schoolNumber, Long schoolClass, Long phoneNumber, String mail, boolean gender, Date recordTime) {
+    public StudentsModel(String password, Long tcNumber, String name, String surName, Long schoolNumber, Long schoolClass, Long phoneNumber, String mail, boolean gender, Date recordTime) {
         this.tcNumber = tcNumber;
         this.name = name;
         this.surName = surName;
         this.mail = mail;
-        this.password=password;
+        this.password = password;
         this.schoolNumber = schoolNumber;
         this.schoolClass = schoolClass;
         this.phoneNumber = phoneNumber;
@@ -66,18 +67,25 @@ public class StudentsModel{
     @Temporal(TemporalType.DATE)
     private Date recordTime;
 
+    //bir dersi birden fazla öğrenci alabilir
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "lesson_model_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private LessonsModel lessonsModel;
 
-    @OneToMany(mappedBy = "studentsModel", cascade = CascadeType.ALL)
-    private Set<LessonsModel> lessons = new HashSet<>();
 
-    public Set<LessonsModel> getLessonModel() {
-        return lessons;
-    }
 
-    public void setBooks(Set<LessonsModel> lessons) {
-        this.lessons = lessons;
-        for(LessonsModel b : lessons) {
-            b.setStudentsModel(this);
-        }
-    }
+
+    // bir den falz öğrenciye bir müdür bakar
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "manager_model_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private ManagerModel managerModel;
+
+    //bir öğrencinin bir infosu olur
+    @OneToOne(fetch = FetchType.LAZY,cascade =  CascadeType.ALL,mappedBy = "studentsModel")
+    private StudentInfoModel studentInfoModel;
+
+
+
 }

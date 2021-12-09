@@ -16,12 +16,25 @@ public class StudentInfoModel  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//autoincreament
     @Column(name = "studentInfoId")
     private Long studentInfoId;
-    @Column(name = "fatherName")
-    private String fatherName;
-    @Column(name = "motherName")
-    private String motherName;
-    @Column(name = "address")
-    private String address;
+
+    @Column(name = "lessonName")// DERS ADI
+    private String lessonName;
+
+    @Column(name = "right_of_absence")//DEVAMSIZLIK HAKKI
+    private String rightOfAbsence;
+
+    @Column(name = "lecture_note_one")
+    private int lectureNoteOne;
+
+    @Column(name = "lecture_note_Two")
+    private int lectureNoteTwo;
+
+    @Column(name = "lecture_note_Three")
+    private int lectureNoteThree;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "student_id", nullable = false)
+    private StudentsModel studentsModel;
 
 
 }

@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -17,15 +19,38 @@ public class LessonsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//autoincreament
     private Long lessonId;
-    @Column(name = "grade")
-    private Long grade;
-    @Column(name = "absence")
-    private Long absence;
+    @Column(name = "lesson_name")
+    private String lessonName;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "studentModel_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private StudentsModel studentsModel;
 
+
+    //bir öğrenci birden fazla ders alabilir
+    @OneToMany(mappedBy = "lessonsModel", cascade = CascadeType.ALL)
+    private Set<StudentsModel> student = new HashSet<>();
+    public Set<StudentsModel> getStudentsModel() {
+        return student;
+    }
+    public void setStudentsModel(Set<StudentsModel> student) {
+        this.student = student;
+        for (StudentsModel b : student) {
+            b.setLessonsModel(this);
+        }
+    }
+
+
+
+
+    //bir öğretmen birden fazla ders verebilir
+    @OneToMany(mappedBy = "lessonsModel", cascade = CascadeType.ALL)
+    private Set<TeachersModel> teacher = new HashSet<>();
+    public Set<TeachersModel> getTeachersModel() {
+        return teacher;
+    }
+    public void setTeachersModel(Set<TeachersModel> teacher) {
+        this.teacher = teacher;
+        for (TeachersModel b : teacher) {
+            b.setLessonsModel(this);
+        }
+    }
 }
 

@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/css/**",
                         "/img/**",
                         "/login/postlogin*",
-                        "/teacher/getTeacherPage").permitAll()
+                        "/teacher/getTeacherPage*").permitAll()
                 .antMatchers( "/webjars/**", "/assets/**").permitAll()
                 .antMatchers("/")
                 .permitAll()
@@ -58,6 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

@@ -5,12 +5,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/teacher")
-public class TeacherController {
+@RequestMapping(value = "/management")
+public class ManagementController {
 
-    @GetMapping(value = "/getTeacherPage")
-    public String getTeacherPage() {
-        return "teacherShow";
+
+    @GetMapping(value = "/getManagemetPage")
+    public String managementHomePage() {
+        return "managementShow";
     }
+
+
+
+
+
 
 }
