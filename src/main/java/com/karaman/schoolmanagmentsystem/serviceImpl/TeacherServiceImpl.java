@@ -3,11 +3,14 @@ package com.karaman.schoolmanagmentsystem.serviceImpl;
 import com.karaman.schoolmanagmentsystem.model.TeachersModel;
 import com.karaman.schoolmanagmentsystem.repository.ITeachersRepository;
 import com.karaman.schoolmanagmentsystem.service.ITeachersService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class TeacherServiceImpl implements ITeachersService {
+    @Autowired
     private ITeachersRepository teachersRepository;
 
     public TeacherServiceImpl (ITeachersRepository teachersRepository){

@@ -35,6 +35,4 @@ public class StudentInfoModel  {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "student_id", nullable = false)
     private StudentsModel studentsModel;
-
-
 }

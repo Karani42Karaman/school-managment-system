@@ -58,12 +58,4 @@ public class ManagerModel {
             b.setManagerModel(this);
         }
     }
-
-
-
-
-
-
-
-
 }

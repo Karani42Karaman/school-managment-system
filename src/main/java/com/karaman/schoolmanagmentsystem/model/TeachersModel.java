@@ -38,6 +38,9 @@ public class TeachersModel   {
     @Column(name = "gender")
     private boolean gender;
 
+    @Column(name = "password")
+    private String password;
+
     @Temporal(TemporalType.DATE)
     private Date recordTime;
 

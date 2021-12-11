@@ -67,15 +67,6 @@ public class StudentsModel {
     @Temporal(TemporalType.DATE)
     private Date recordTime;
 
-    //bir dersi birden fazla öğrenci alabilir
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "lesson_model_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private LessonsModel lessonsModel;
-
-
-
-
     // bir den falz öğrenciye bir müdür bakar
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "manager_model_id")
@@ -85,6 +76,10 @@ public class StudentsModel {
     //bir öğrencinin bir infosu olur
     @OneToOne(fetch = FetchType.LAZY,cascade =  CascadeType.ALL,mappedBy = "studentsModel")
     private StudentInfoModel studentInfoModel;
+
+
+
+
 
 
 

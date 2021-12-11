@@ -3,21 +3,21 @@ package com.karaman.schoolmanagmentsystem.dto;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 public class LoginDto {
-    private String tcNo;
+    private Long tcNo;
     private String password;
     private String role;
 
-    public LoginDto( String tcNo, String password, String role) {
+    public LoginDto( Long tcNo, String password, String role) {
 
         this.tcNo = tcNo;
         this.password = password;
         this.role = role;
     }
 
-    public String getTcNo(){
+    public Long getTcNo(){
         return tcNo;
     }
-    public void setTcNo(String tcNo){
+    public void setTcNo(Long tcNo){
         this.tcNo=tcNo;
     }
 
