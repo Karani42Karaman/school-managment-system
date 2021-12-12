@@ -7,6 +7,8 @@
 <head>
   <title>Management </title>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Favicon icon -->
   <link rel="icon" th:href="@{/assets/images/favicon.ico}" type="image/x-icon">
   <!-- Google font-->     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
@@ -99,6 +101,16 @@
                 <a th:href="@{/management/getManagemetPage}"  class="waves-effect waves-dark">
                   <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                   <span class="pcoded-mtext" data-i18n="nav.dash.main">Students</span>
+                  <span class="pcoded-mcaret"></span>
+                </a>
+              </li>
+            </ul>
+            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Teachers</div>
+            <ul class="pcoded-item pcoded-left-item">
+              <li class="">
+                <a th:href="@{/management/getTeacherPage}"  class="waves-effect waves-dark">
+                  <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                  <span class="pcoded-mtext" data-i18n="nav.dash.main">Teachers</span>
                   <span class="pcoded-mcaret"></span>
                 </a>
               </li>

@@ -75,7 +75,7 @@ public class StudentsModel {
     private ManagerModel managerModel;
 
     //bir müdür birden fazla öğretmene  bakar
-    @OneToMany(mappedBy = "studentsModel", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "studentsModel", cascade = CascadeType.ALL)
     private Set<StudentInfoModel>    studentInfoModels = new HashSet<>();
     public Set<StudentInfoModel> getStudentInfoModel() {
         return studentInfoModels;

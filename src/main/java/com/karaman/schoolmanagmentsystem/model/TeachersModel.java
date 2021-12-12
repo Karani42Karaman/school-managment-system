@@ -15,26 +15,26 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "teachers")
-public class TeachersModel   {
+public class TeachersModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//autoincreament
     @Column(name = "teacher_id")
     private Long teacherId;
 
-    @Column(name="tcNumber")
+    @Column(name = "tcNumber")
     private Long tcNumber;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="surName")
+    @Column(name = "surName")
     private String surName;
 
-    @Column(name="phoneNumber")
+    @Column(name = "phoneNumber")
     private Long phoneNumber;
 
-    @Column(name="mail")
+    @Column(name = "mail")
     private String mail;
 
     @Column(name = "gender")
@@ -59,7 +59,6 @@ public class TeachersModel   {
     @JoinColumn(name = "lesson_model_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private LessonsModel lessonsModel;
-
 
 
 }
