@@ -64,6 +64,7 @@ public class StudentsModel {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "record_time")
     @Temporal(TemporalType.DATE)
     private Date recordTime;
 
@@ -73,14 +74,18 @@ public class StudentsModel {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ManagerModel managerModel;
 
-    //bir öğrencinin bir infosu olur
-    @OneToOne(fetch = FetchType.LAZY,cascade =  CascadeType.ALL,mappedBy = "studentsModel")
-    private StudentInfoModel studentInfoModel;
-
-
-
-
-
+    //bir müdür birden fazla öğretmene  bakar
+    @OneToMany(mappedBy = "studentsModel", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<StudentInfoModel>    studentInfoModels = new HashSet<>();
+    public Set<StudentInfoModel> getStudentInfoModel() {
+        return studentInfoModels;
+    }
+    public void setStudentInfoModel(Set<StudentInfoModel> studentInfoModels) {
+        this.studentInfoModels = studentInfoModels;
+        for (StudentInfoModel b : studentInfoModels) {
+            b.setStudentsModel(this);
+        }
+    }
 
 
 }

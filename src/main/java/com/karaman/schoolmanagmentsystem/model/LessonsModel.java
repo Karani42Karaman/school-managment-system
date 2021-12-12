@@ -17,7 +17,7 @@ public class LessonsModel {
     private String lessonName;
 
     //bir öğretmen birden fazla ders verebilir
-    @OneToMany(mappedBy = "lessonsModel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "lessonsModel",  cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<TeachersModel> teacher = new HashSet<>();
     public Set<TeachersModel> getTeachersModel() {
         return teacher;

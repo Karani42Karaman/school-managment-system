@@ -34,7 +34,7 @@ public class ManagerModel {
 
 
     //bir müdür birden fazla öğrenciye bakar
-    @OneToMany(mappedBy = "managerModel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "managerModel",  cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<StudentsModel> studentsModels = new HashSet<>();
     public Set<StudentsModel> getStudentsModels() {
         return studentsModels;
@@ -47,7 +47,7 @@ public class ManagerModel {
     }
 
     //bir müdür birden fazla öğretmene  bakar
-    @OneToMany(mappedBy = "managerModel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "managerModel", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<TeachersModel>  teachersModels = new HashSet<>();
     public Set<TeachersModel> getTeachersModel() {
         return teachersModels;

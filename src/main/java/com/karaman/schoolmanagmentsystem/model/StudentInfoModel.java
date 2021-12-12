@@ -1,6 +1,7 @@
 package com.karaman.schoolmanagmentsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
@@ -32,7 +33,13 @@ public class StudentInfoModel  {
     @Column(name = "lecture_note_Three")
     private int lectureNoteThree;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @Column(name = "teacher_id")
+    private int teacherId;
+
+
+    // bir öğrencinin birden fazla infosu olur
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "student_id", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private StudentsModel studentsModel;
 }

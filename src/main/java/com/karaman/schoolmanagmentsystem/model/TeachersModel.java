@@ -9,6 +9,8 @@ import lombok.Data;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -57,4 +59,7 @@ public class TeachersModel   {
     @JoinColumn(name = "lesson_model_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private LessonsModel lessonsModel;
+
+
+
 }

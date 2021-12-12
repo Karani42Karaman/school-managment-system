@@ -27,10 +27,6 @@ public class StudentInfoServiceImpl implements IStudentInfoService {
         return studentInfoRepository.save(infoModel);
     }
 
-    @Override
-    public StudentInfoModel getStudentInfoById(Long id) {
-        return studentInfoRepository.getById(id);
-    }
 
     @Override
     public StudentInfoModel updateStudentInfo(StudentInfoModel infoModel) {
@@ -41,4 +37,11 @@ public class StudentInfoServiceImpl implements IStudentInfoService {
     public void deleteStudentInfoById(Long id) {
         studentInfoRepository.deleteById(id);
     }
+
+    @Override
+    public List<StudentInfoModel> getStudentInfoByStudentId(Long student_id) {
+        return studentInfoRepository.findByStudentId(student_id);
+    }
+
+
 }
