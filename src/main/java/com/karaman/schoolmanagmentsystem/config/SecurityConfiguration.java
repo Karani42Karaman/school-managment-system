@@ -46,8 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/css/**",
                         "/img/**",
                         "/login/postlogin*",
-                        "/teacher/getTeacherPage*",//izin verilen entry pointler var
-                        "/student/getStudentPage*",
+                        "/teacher/getTeacherPage",//izin verilen entry pointler var
+                        "/student/**",
                         "/management/getManagemetPage",
                         "/management/postStudentCreate",
                         "/management/postStudentDelete",

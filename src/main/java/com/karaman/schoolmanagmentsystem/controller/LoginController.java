@@ -28,7 +28,7 @@ public class LoginController {
     }
 
     //login sayfası na yönlendirme işlemi yapar
-    @GetMapping
+    @GetMapping(value = "/getLogin")
     public String login(Model model, @ModelAttribute("login") LoginDto loginDto) {
         model.addAttribute("login", loginDto);
         return "login";
@@ -42,7 +42,7 @@ public class LoginController {
             List<StudentsModel> studentList = studentsService.getAllStudents();
             for (StudentsModel studentsModel : studentList) {
                 if (studentsModel.getTcNumber().equals(loginDto.getTcNo()) && studentsModel.getPassword().equals(loginDto.getPassword())) {
-                    session.setAttribute("login", studentsModel);
+                    session.setAttribute("student", studentsModel);
                     return "redirect:/student/getStudentPage";
                 }
             }
@@ -50,7 +50,7 @@ public class LoginController {
             List<TeachersModel> teacherList = teacherService.getAllTeachers();
             for (TeachersModel teachersModel : teacherList) {
                 if (teachersModel.getTcNumber().equals(loginDto.getTcNo()) && teachersModel.getPassword().equals(loginDto.getPassword())) {
-                    session.setAttribute("login", teachersModel);
+                    session.setAttribute("teacher", teachersModel);
                     return "redirect:/teacher/getTeacherPage";//yönlendirme yapılır url gibi düşün
                 }
             }
@@ -58,11 +58,20 @@ public class LoginController {
             List<ManagerModel> managerList = managerService.getAllManager();
             for (ManagerModel managerModel : managerList) {
                 if (managerModel.getTcNumber().equals(loginDto.getTcNo()) && managerModel.getManagerPassword().equals(loginDto.getPassword())) {
-                    session.setAttribute("login", managerModel);
+                    session.setAttribute("admin", managerModel);
                     return "redirect:/management/getManagemetPage";
                 }
             }
         }
         return "redirect:/login/getLogin";
     }
+
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/login/getLogin";
+    }
+
+
+
+
 }

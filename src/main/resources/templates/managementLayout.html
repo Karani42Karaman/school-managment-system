@@ -52,7 +52,7 @@
                 <i class="ti-angle-down"></i>
               </a>
             <li class="waves-effect waves-light">
-              <a href="auth-normal-sign-in.html">
+              <a th:href="@{/login/logout}" >
                 <i class="ti-layout-sidebar-left"></i> Logout
               </a>
             </li>
@@ -111,6 +111,16 @@
                 <a th:href="@{/management/getTeacherPage}"  class="waves-effect waves-dark">
                   <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                   <span class="pcoded-mtext" data-i18n="nav.dash.main">Teachers</span>
+                  <span class="pcoded-mcaret"></span>
+                </a>
+              </li>
+            </ul>
+            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Lessons</div>
+            <ul class="pcoded-item pcoded-left-item">
+              <li class="">
+                <a th:href="@{/management/getLessonPage}"  class="waves-effect waves-dark">
+                  <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                  <span class="pcoded-mtext" data-i18n="nav.dash.main">Lessons</span>
                   <span class="pcoded-mcaret"></span>
                 </a>
               </li>

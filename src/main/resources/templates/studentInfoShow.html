@@ -52,43 +52,34 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2> Student <b>Management Page</b></h2>
+                            <h2> Student <b>Information Page</b></h2>
                         </div>
                     </div>
                 </div>
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>Tc Number</th>
-                        <th>Name</th>
-                        <th>SurName</th>
-                        <th>Mail</th>
-                        <th>Phone</th>
-                        <th>Class</th>
-                        <th>School Number</th>
-                        <th>Gender</th>
+                        <th>Lesson Name</th>
+                        <th>Lecture Note One</th>
+                        <th>Lecture Note Two</th>
+                        <th>Lecture Note Three</th>
+                        <th>Right Of Absence</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:object="${student}">
-                        <td th:text="*{tcNumber}"></td>
-                        <td th:text="*{name}"></td>
-                        <td th:text="*{surName}"></td>
-                        <td th:text="*{mail}"></td>
-                        <td th:text="*{phoneNumber}"></td>
-                        <td th:text="*{schoolClass}"></td>
-                        <td th:text="*{schoolNumber}"></td>
-                        <td th:text="*{gender}"></td>
-                        <td>
-                            <a th:href="@{/student/getStudentInfoPage/{student_id}(student_id=${student.studentId})}" class="btn waves-effect waves-dark btn-primary btn-outline-primary">Student Info</a>
-                        </td>
+                    <tr th:each="info:${studentInfoModelList}">
+                        <td th:text="${info.lessonName}"></td>
+                        <td th:text="${info.lectureNoteOne}"></td>
+                        <td th:text="${info.lectureNoteTwo}"></td>
+                        <td th:text="${info.lectureNoteThree}"></td>
+                        <td th:text="${info.rightOfAbsence}"></td>
                     </tr>
                     </tbody>
                 </table>
+                <span><a th:href="@{/student/getStudentPage}">Previous</a></span>
             </div>
         </div>
     </div>
-</div>
+    </div>
 </body>
-
 </html>

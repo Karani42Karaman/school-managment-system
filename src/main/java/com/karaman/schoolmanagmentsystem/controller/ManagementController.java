@@ -1,9 +1,6 @@
 package com.karaman.schoolmanagmentsystem.controller;
 
-import com.karaman.schoolmanagmentsystem.dto.InfoCreateDto;
-import com.karaman.schoolmanagmentsystem.dto.StudentInfoDto;
-import com.karaman.schoolmanagmentsystem.dto.TeacherCreateDto;
-import com.karaman.schoolmanagmentsystem.dto.TeacherDto;
+import com.karaman.schoolmanagmentsystem.dto.*;
 import com.karaman.schoolmanagmentsystem.model.*;
 import com.karaman.schoolmanagmentsystem.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -61,7 +58,7 @@ public class ManagementController {
         if (studentsModel == null) {
             return "redirect:/management/getManagemetPage";
         }
-        studentsModel.setManagerModel((ManagerModel) request.getSession().getAttribute("login"));
+        studentsModel.setManagerModel((ManagerModel) request.getSession().getAttribute("admin"));
         studentsService.updateStudent(studentsModel);
         return "redirect:/management/getManagemetPage";
     }
@@ -71,7 +68,7 @@ public class ManagementController {
         if (studentsModel == null) {
             return "redirect:/management/getManagemetPage";
         }
-        ManagerModel session = (ManagerModel) request.getSession().getAttribute("login");//Hangi müdür kayıt edecekse onun id si altına kayıt eder
+        ManagerModel session = (ManagerModel) request.getSession().getAttribute("admin");//Hangi müdür kayıt edecekse onun id si altına kayıt eder
         studentsModel.setManagerModel(session);
         studentsModel.setRecordTime(java.sql.Date.valueOf(LocalDate.now()));
         studentsService.saveStudent(studentsModel);
@@ -166,7 +163,7 @@ public class ManagementController {
         teachersModel.setRecordTime(java.sql.Date.valueOf(LocalDate.now()));
         teachersModel.setGender(teachersDtoModel.isGender());
 
-        ManagerModel session = (ManagerModel) request.getSession().getAttribute("login");
+        ManagerModel session = (ManagerModel) request.getSession().getAttribute("admin");
         teachersModel.setManagerModel(session);
 
         teachersModel.setLessonsModel(lessonsService.getLessonById(Long.valueOf(teachersDtoModel.getLessonId())));
@@ -174,4 +171,75 @@ public class ManagementController {
         return "redirect:/management/getTeacherPage";
     }
 
+    @GetMapping("/getTeacherUpdate/{teacher_id}")
+    public String getTeacherUpdate(@PathVariable("teacher_id") Long teacher_id, Model model) {
+        if (teacher_id == null || teacher_id == 0) {
+            return "redirect:/management/getTeacherPage";
+        }
+
+        TeachersModel teachersModel = teachersService.getTeacherById(teacher_id);
+
+        TeacherUpdateDto teacherUpdateDto = new TeacherUpdateDto();
+
+        teacherUpdateDto.teachersModel = teachersModel;
+
+        Long a = teachersService.getTeacherById(teacher_id).getLessonsModel().getLessonId();
+        LessonsModel lessonModel = lessonsService.getLessonById(a);
+
+        teacherUpdateDto.lessonsModelList = lessonsService.getAllLessonss();
+        teacherUpdateDto.lessonsModelList.add(0, lessonModel);
+
+        model.addAttribute("teachersDtoModel", teacherUpdateDto);
+        return "managementTeacherUpdate";
+    }
+
+    @PostMapping(value = "/postTeacherUpdate")
+    public String postTeacherUpdate(@Valid @ModelAttribute("teachersDtoModel") TeacherCreateDto teachersDtoModel, BindingResult bindingResult, HttpServletRequest request) {
+        if (teachersDtoModel == null) {
+            return "redirect:/management/getTeacherPage";
+        }
+
+        TeachersModel teachersModel = new TeachersModel();
+        teachersModel.setTeacherId(teachersDtoModel.getTeacherId());
+        teachersModel.setName(teachersDtoModel.getName());
+        teachersModel.setSurName(teachersDtoModel.getSurName());
+        teachersModel.setPassword(teachersDtoModel.getPassword());
+        teachersModel.setTcNumber(teachersDtoModel.getTcNumber());
+        teachersModel.setMail(teachersDtoModel.getMail());
+        teachersModel.setPhoneNumber(teachersDtoModel.getPhoneNumber());
+        teachersModel.setRecordTime(java.sql.Date.valueOf(LocalDate.now()));
+        teachersModel.setGender(teachersDtoModel.isGender());
+
+        ManagerModel session = (ManagerModel) request.getSession().getAttribute("admin");
+        teachersModel.setManagerModel(session);
+
+        teachersModel.setLessonsModel(lessonsService.getLessonById(Long.valueOf(teachersDtoModel.getLessonId())));
+        teachersService.saveTeacher(teachersModel);
+        return "redirect:/management/getTeacherPage";
+    }
+
+    @GetMapping("/getLessonPage")
+    public String getLessonPage(Model model) {
+        List<LessonsModel> lessonList = lessonsService.getAllLessonss();
+        model.addAttribute("lessonList", lessonList);
+        return "managementLessonIndex";
+    }
+
+    @PostMapping("/postLessonCreate")
+    public String postLessonCreate(@ModelAttribute("lessonModel") LessonsModel lessonsModel) {
+        if (lessonsModel == null) {
+            return "redirect:/management/getLessonPage";
+        }
+        lessonsService.saveLesson(lessonsModel);
+        return "redirect:/management/getLessonPage";
+    }
+
+    @GetMapping("/getLessonDelete/{lesson_id}")
+    public String getLessonDelete(@PathVariable("lesson_id") Long lesson_id) {
+        if (lesson_id == null || lesson_id == 0) {
+            return "redirect:/management/getLessonPage";
+        }
+        lessonsService.deleteLessonById(lesson_id);
+        return "redirect:/management/getLessonPage";
+    }
 }

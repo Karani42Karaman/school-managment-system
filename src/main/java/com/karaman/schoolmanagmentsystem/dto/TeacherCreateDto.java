@@ -16,4 +16,5 @@ public class TeacherCreateDto {
     private String password;
     private Date recordTime;
     private Long lessonId;
+    private Long teacherId;
 }

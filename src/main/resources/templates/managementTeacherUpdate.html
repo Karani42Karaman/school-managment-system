@@ -6,7 +6,7 @@
       layout:decorator="managementLayout">
 
 <head>
-    <title>Management Update Teacher </title>
+    <title>Management Update Student </title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -26,12 +26,12 @@
                     </div>
                 </div>
 
-                <h1>Student Update</h1>
+                <h1>Teacher Update</h1>
 
-                <form th:action="@{/management/postStudentUpdate}" method="POST" th:object="${teachersModel}">
+                <form th:action="@{/management/postTeacherUpdate}" method="POST" th:object="${teachersDtoModel.teachersModel}">
 
                     <div class="form-group">
-                        <label> Student Tc Number </label>
+                        <label> Teacher Tc Number </label>
                         <input
                                 type="number"
                                 name="tcNumber"
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Student Name </label>
+                        <label> Teacher Name </label>
                         <input
                                 type="text"
                                 name="name"
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Student SurName </label>
+                        <label> Teacher SurName </label>
                         <input
                                 type="text"
                                 name="surName"
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Student Mail </label>
+                        <label> Teacher Mail </label>
                         <input
                                 type="text"
                                 name="mail"
@@ -70,7 +70,7 @@
                                 required autofocus="autofocus"/>
                     </div>
                     <div class="form-group">
-                        <label> Student Password </label>
+                        <label> Teacher Password </label>
                         <input
                                 type="text"
                                 name="password"
@@ -80,7 +80,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label> Student Phone Number </label>
+                        <label>Lesson Select</label>
+                        <select class="form-control" name="lessonId" >
+                            <option id="editInfo" th:each="operator : ${teachersDtoModel.lessonsModelList}"
+                                    th:value="${operator.lessonId}"
+                                    th:text="${operator.lessonName  }"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label> Teacher Phone Number </label>
                         <input
                                 type="number"
                                 name="phoneNumber"
@@ -88,27 +97,6 @@
                                 class="form-control"
                                 required autofocus="autofocus"/>
                     </div>
-
-                    <div class="form-group">
-                        <label> Student School Class </label>
-                        <input
-                                type="number"
-                                name="schoolClass"
-                                th:value="*{schoolClass}"
-                                class="form-control"
-                                required autofocus="autofocus"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label> Student School Number </label>
-                        <input
-                                type="number"
-                                name="schoolNumber"
-                                th:value="*{schoolNumber}"
-                                class="form-control"
-                                required autofocus="autofocus"/>
-                    </div>
-
                     <div class="form-group">
                         <input
                                 type="hidden"
@@ -117,15 +105,6 @@
                                 class="form-control"
                                 autofocus="autofocus"/>
 
-                    </div>
-                    <div class="form-group">
-
-                        <input
-                                type="hidden"
-                                name="studentId"
-                                th:value="*{studentId}"
-                                class="form-control"
-                                required autofocus="autofocus"/>
                     </div>
 
                     <div class="form-group">
@@ -136,11 +115,19 @@
                                 class="form-control"
                                 required autofocus="autofocus"/>
                     </div>
+                    <div class="form-group">
+                        <input
+                                type="hidden"
+                                name="teacherId"
+                                th:value="*{teacherId}"
+                                class="form-control"
+                                required autofocus="autofocus"/>
+                    </div>
 
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">Update Student</button>
-                        <span><a th:href="@{/management/getManagemetPage}">Previous</a></span>
+                        <button type="submit" class="btn btn-success">Update Teacher</button>
+                        <span><a th:href="@{/management/getTeacherPage}">Previous</a></span>
                     </div>
                 </form>
             </div>
