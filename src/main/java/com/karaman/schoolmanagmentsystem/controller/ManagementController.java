@@ -32,12 +32,11 @@ public class ManagementController {
         this.studentInfoService = studentInfoService;
         this.lessonsService = lessonsService;
     }
-
     @GetMapping(value = "/getManagemetPage")
     public String managementHomePage(Model model) {
         List<StudentsModel> studentsModelList = studentsService.getAllStudents();
         studentsModelList = studentsService.getAllStudents();
-        model.addAttribute("studentsList", studentsModelList);
+        model.addAttribute("studentsModelList", studentsModelList);
         return "managementStudentCreate";
     }
 
