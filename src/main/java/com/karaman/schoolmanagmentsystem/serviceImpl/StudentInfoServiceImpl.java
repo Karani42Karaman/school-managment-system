@@ -27,6 +27,10 @@ public class StudentInfoServiceImpl implements IStudentInfoService {
         return studentInfoRepository.save(infoModel);
     }
 
+    @Override
+    public StudentInfoModel getStudentInfoById(Long id) {
+        return studentInfoRepository.findById(id).get();
+    }
 
     @Override
     public StudentInfoModel updateStudentInfo(StudentInfoModel infoModel) {

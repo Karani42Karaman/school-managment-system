@@ -32,6 +32,7 @@ public class ManagementController {
         this.studentInfoService = studentInfoService;
         this.lessonsService = lessonsService;
     }
+
     @GetMapping(value = "/getManagemetPage")
     public String managementHomePage(Model model) {
         List<StudentsModel> studentsModelList = studentsService.getAllStudents();
@@ -100,25 +101,30 @@ public class ManagementController {
     }
 
     @PostMapping("/postStudentInfoCreate")
-    public String postInfoCreate(@Valid @ModelAttribute("infoCreateDto") InfoCreateDto infoCreateDto, HttpServletRequest request) {
-        if (infoCreateDto == null) {
+    public String postInfoCreate( InfoCreateDto infoCreateDto, HttpServletRequest request) {
+        try {
+            if (infoCreateDto == null) {
+                return "redirect:/management/getStudentInfoCreate/" + studentsModel.getStudentId();
+            }
+            StudentInfoModel studentInfoModel = new StudentInfoModel();
+
+            studentInfoModel.setLectureNoteOne(infoCreateDto.getLectureNoteOne());
+            studentInfoModel.setLectureNoteTwo(infoCreateDto.getLectureNoteTwo());
+            studentInfoModel.setLectureNoteThree(infoCreateDto.getLectureNoteThree());
+            studentInfoModel.setRightOfAbsence(infoCreateDto.getRightOfAbsence());
+            studentInfoModel.setTeacherId(infoCreateDto.getTeacherId());
+
+            TeachersModel teachersModel = teachersService.getTeacherById(Long.valueOf(infoCreateDto.getTeacherId()));
+            LessonsModel lessonsModel = lessonsService.getLessonById(Long.valueOf(teachersModel.getLessonsModel().getLessonId()));
+
+            studentInfoModel.setLessonName(lessonsModel.getLessonName());
+            studentInfoModel.setStudentsModel(studentsModel);
+            studentInfoService.saveStudentInfo(studentInfoModel);
+            return "redirect:/management/getStudentInfoCreate/" + studentsModel.getStudentId();
+        } catch (Exception e) {
             return "redirect:/management/getStudentInfoCreate/" + studentsModel.getStudentId();
         }
-        StudentInfoModel studentInfoModel = new StudentInfoModel();
 
-        studentInfoModel.setLectureNoteOne(infoCreateDto.getLectureNoteOne());
-        studentInfoModel.setLectureNoteTwo(infoCreateDto.getLectureNoteTwo());
-        studentInfoModel.setLectureNoteThree(infoCreateDto.getLectureNoteThree());
-        studentInfoModel.setRightOfAbsence(infoCreateDto.getRightOfAbsence());
-        studentInfoModel.setTeacherId(infoCreateDto.getTeacherId());
-
-        TeachersModel teachersModel = teachersService.getTeacherById(Long.valueOf(infoCreateDto.getTeacherId()));
-        LessonsModel lessonsModel = lessonsService.getLessonById(Long.valueOf(teachersModel.getLessonsModel().getLessonId()));
-
-        studentInfoModel.setLessonName(lessonsModel.getLessonName());
-        studentInfoModel.setStudentsModel(studentsModel);
-        studentInfoService.saveStudentInfo(studentInfoModel);
-        return "redirect:/management/getStudentInfoCreate/" + studentsModel.getStudentId();
     }
 
     @GetMapping("/getStudentInfoDelete/{studentInfoId}")

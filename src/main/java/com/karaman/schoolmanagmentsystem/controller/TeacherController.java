@@ -1,44 +1,117 @@
 package com.karaman.schoolmanagmentsystem.controller;
 
 import com.karaman.schoolmanagmentsystem.model.StudentInfoModel;
+import com.karaman.schoolmanagmentsystem.model.StudentsModel;
+import com.karaman.schoolmanagmentsystem.model.TeachersModel;
+import com.karaman.schoolmanagmentsystem.service.ILessonsService;
 import com.karaman.schoolmanagmentsystem.service.IStudentInfoService;
 import com.karaman.schoolmanagmentsystem.service.IStudentsService;
 import com.karaman.schoolmanagmentsystem.service.ITeachersService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 @Controller
 @RequestMapping(value = "/teacher")
 public class TeacherController {
-
+    private static Long Student_Id;
+    ILessonsService lessonsService;
     IStudentInfoService studentInfoService;
     ITeachersService teachersService;
     IStudentsService studentsService;
-    public TeacherController(IStudentInfoService studentInfoService,IStudentsService studentsService,ITeachersService teachersService) {
+
+    public TeacherController(ILessonsService lessonsService, IStudentInfoService studentInfoService, IStudentsService studentsService, ITeachersService teachersService) {
         this.teachersService = teachersService;
         this.studentsService = studentsService;
-        this.studentInfoService=studentInfoService;
+        this.studentInfoService = studentInfoService;
+        this.lessonsService = lessonsService;
     }
 
 
     @GetMapping(value = "/getTeacherPage")
-    public String getTeacherPage(Model model) {
-        List<StudentInfoModel> studentInfoList = studentInfoService.getAllStudentInfo();
-        Map<Integer, List<StudentInfoModel>> groupStudents = studentInfoList.stream().collect(Collectors.groupingBy(w -> w.getTeacherId()));
-
-        List<StudentInfoModel> list;
-        for (StudentInfoModel student : studentInfoList) {
-            if(groupStudents.containsKey(8)){
-                list = groupStudents.get(8);
+    public String getTeacherPage(Model model, HttpServletRequest request) {
+        TeachersModel teachersModel = (TeachersModel) request.getSession().getAttribute("teacher");
+        //bu öğretmene ait öğrenci infosunu aldık
+        List<StudentInfoModel> list = studentInfoService.getAllStudentInfo().stream().filter(x -> x.getTeacherId() == (teachersModel.getTeacherId())).collect(Collectors.toList());
+        // bu öğretmene ait olan öğrencileri alacağız şimdi
+        List<StudentsModel> studentList = new ArrayList<>();
+        for (StudentInfoModel studentInfoModel : list) {
+            if (teachersModel.getTeacherId() == studentInfoModel.getTeacherId()) {
+                studentList.add(studentsService.getStudentById(studentInfoModel.getStudentsModel().getStudentId()));
             }
         }
-
+        model.addAttribute("studentList", studentList);
         return "teacherShow";
     }
+
+    @GetMapping(value = "/getStudentInfoPage/{student_id}")
+    public String getStudentInfoPage(@PathVariable("student_id") Long student_id, Model model, HttpServletRequest request) {
+        Student_Id = student_id;
+        TeachersModel teachersModel = (TeachersModel) request.getSession().getAttribute("teacher");
+        //bu öğretmene ait öğrenci infosunu aldık
+        List<StudentInfoModel> list = studentInfoService.getAllStudentInfo().stream().filter(x -> x.getTeacherId() == (teachersModel.getTeacherId())).collect(Collectors.toList());
+        // bu öğretmene ait olan öğrencileri alacağız şimdi
+        List<StudentsModel> studentList = new ArrayList<>();
+        for (StudentInfoModel studentInfoModel : list) {
+            if (teachersModel.getTeacherId() == studentInfoModel.getTeacherId()) {
+                studentList.add(studentsService.getStudentById(studentInfoModel.getStudentsModel().getStudentId()));
+            }
+        }
+        StudentsModel studentModel = studentList.stream().filter(x -> x.getStudentId() == student_id).collect(Collectors.toList()).stream().findFirst().get();
+
+        Stream<StudentInfoModel> infoList = studentInfoService.getStudentInfoByStudentId(studentModel.getStudentId()).stream().filter(x -> x.getTeacherId() == teachersModel.getTeacherId());
+        model.addAttribute("infoList", infoList);
+        return "teacherStudentInfoShow";
+    }
+
+
+    @PostMapping(value = "/postStudentInfoCreate")
+    public String postStudentInfoCreate(@Valid @ModelAttribute("studentInfoModel") StudentInfoModel studentInfoModel, Model model, HttpServletRequest request) {
+        try {
+            if (studentInfoModel == null) {
+                return "redirect:/teacher/getTeacherPage";
+            }
+            TeachersModel teachersModel = (TeachersModel) request.getSession().getAttribute("teacher");
+            studentInfoModel.setTeacherId(teachersModel.getTeacherId().intValue());
+            studentInfoModel.setLessonName(lessonsService.getLessonById(teachersModel.getLessonsModel().getLessonId()).getLessonName());
+            studentInfoModel.setStudentsModel(studentsService.getStudentById(Student_Id));
+            studentInfoService.saveStudentInfo(studentInfoModel);
+            return "teacherStudentInfoShow";
+        } catch (Exception e) {
+            return "redirect:/teacher/getTeacherPage";
+        }
+
+    }
+
+
+    @GetMapping(value = "/getStudentInfoUpdate/{student_info_id}")
+    public String getStudentInfoUpdate(@PathVariable("student_info_id") Long student_info_id, Model model, HttpServletRequest request) {
+       StudentInfoModel studentInfoModel = studentInfoService.getStudentInfoById(student_info_id);
+       model.addAttribute("studentInfoModel",studentInfoModel);
+        return "teacherStudentInfoUpdate";
+    }
+
+    @PostMapping(value = "/postStudentInfoUpdate")
+    public String postStudentInfoUpdate(@Valid @ModelAttribute("studentInfoModel") StudentInfoModel studentInfoModel, Model model, HttpServletRequest request) {
+        try {
+            if (studentInfoModel == null) {
+                return "redirect:/teacher/getTeacherPage";
+            }
+            studentInfoModel.setStudentsModel(studentsService.getStudentById(Student_Id));
+            studentInfoService.saveStudentInfo(studentInfoModel);
+            return "redirect:/teacher/getStudentInfoUpdate/" + studentInfoModel.getStudentInfoId();
+        } catch (Exception e) {
+            return "redirect:/teacher/getTeacherPage";
+        }
+
+    }
+
 
 }

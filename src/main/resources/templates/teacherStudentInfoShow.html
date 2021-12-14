@@ -3,10 +3,10 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorator="managementLayout">
+      layout:decorator="teacherLayout">
 
 <head>
-    <title>Management Home</title>
+    <title>Teacher Student İnfo Show</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -52,12 +52,12 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2> Student <b>Management Page</b></h2>
+                            <h2> Student <b>Info Management Page</b></h2>
                         </div>
-                        <div class="col-sm-6">
-                            <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
-                                    class="material-icons">&#xE147;</i> <span>Add New Student Info </span></a>
-                        </div>
+<!--                        <div class="col-sm-6">-->
+<!--                            <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i-->
+<!--                                    class="material-icons">&#xE147;</i> <span>Add New Student Info </span></a>-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <table class="table table-striped table-hover">
@@ -71,20 +71,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="info:${studentInfoDto.studentInfoList}">
+                    <tr th:each="info:${infoList.toList()}">
                         <td th:text="${info.lessonName}"></td>
                         <td th:text="${info.lectureNoteOne}"></td>
                         <td th:text="${info.lectureNoteTwo}"></td>
                         <td th:text="${info.lectureNoteThree}"></td>
                         <td th:text="${info.rightOfAbsence}"></td>
                         <td>
-                            <a th:href="@{/management/getStudentInfoDelete/{studentInfoId}(studentInfoId=${info.studentInfoId})}"
-                               class="btn waves-effect waves-dark btn-danger btn-outline-danger">Delete</a>
+                            <a th:href="@{/teacher/getStudentInfoUpdate/{student_info_id}(student_info_id=${info.studentInfoId})}" class="btn waves-effect waves-dark btn-info btn-outline-info"  >Edit</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <span><a th:href="@{/management/getManagemetPage}">Previous</a></span>
+                <span><a th:href="@{/teacher/getTeacherPage}">Previous</a></span>
             </div>
         </div>
     </div>
@@ -92,25 +91,15 @@
     <div id="addEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form th:action="@{/management/postStudentInfoCreate}"  method="POST">
+                <form th:action="@{/teacher/postStudentInfoCreate}"  method="POST">
                     <div class="modal-header">
                         <h4 class="modal-title">Add Student Info</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="languageselector">Teachers Select</label>
-                            <select class="form-control" name="teacherId" id="languageselector" required>
-
-                                <option  id="editInfo" th:each="operator : ${studentInfoDto.teacherList}"
-                                        th:value="${operator.teacherId}"
-                                        th:text="${operator.name}"></option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
                             <label>Lecture Note One</label>
-                            <input type="number" th:value="0" name="lectureNoteOne" class="form-control" >
+                            <input type="number" th:value="0 " name="lectureNoteOne" class="form-control"  >
                         </div>
                         <div class="form-group">
                             <label>Lecture Note Two</label>
