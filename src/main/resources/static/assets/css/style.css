@@ -8443,7 +8443,7 @@ body[themebg-pattern="theme6"] {
   .pcoded .pcoded-header[header-theme="theme6"] a {
     color: #fff; }
 .pcoded[fream-type="theme1"] .page-header:before, .pcoded[fream-type="theme1"] .main-menu .main-menu-header:before {
-  background: rgba(68, 138, 255, 0.5); }
+  background: #28a745; }
 .pcoded[fream-type="theme2"] .page-header:before, .pcoded[fream-type="theme2"] .main-menu .main-menu-header:before {
   background: rgba(183, 28, 28, 0.5); }
 .pcoded[fream-type="theme3"] .page-header:before, .pcoded[fream-type="theme3"] .main-menu .main-menu-header:before {

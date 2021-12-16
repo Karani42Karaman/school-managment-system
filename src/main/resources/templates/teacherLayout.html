@@ -22,7 +22,6 @@
     <link rel="stylesheet" th:href="@{/assets/pages/waves/css/waves.min.css}" type="text/css" media="all">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{assets/css/jquery.mCustomScrollbar.css}">
 </head>
 <body>
 
@@ -46,7 +45,7 @@
                         <li class="user-profile header-notification">
                             <a href="#!" class="waves-effect waves-light">
                                 <img th:src="@{/assets/images/avatar-4.jpg}" class="img-radius" alt="User-Profile-Image">
-                                <span>John Doe</span>
+                                <span id="userName"> </span>
                                 <i class="ti-angle-down"></i>
                             </a>
                         <li class="waves-effect waves-light">
@@ -55,8 +54,6 @@
                             </a>
                         </li>
                     </ul>
-
-
                 </div>
             </div>
         </nav>
@@ -70,7 +67,7 @@
                             <div class="main-menu-header">
                                 <img class="img-80 img-radius" th:src="@{/assets/images/avatar-4.jpg}" alt="User-Profile-Image">
                                 <div class="user-details">
-                                    <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
+                                    <span id="userName1"> <i class="fa fa-caret-down"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -96,14 +93,10 @@
                     </div>
                 </nav>
                 <div class="pcoded-content" >
-
                     <!-- Page-content start -->
                     <div layout:fragment="mycontent">
                     </div>
                     <!-- Page-content end -->
-
-
-
                 </div>
             </div>
         </div>
@@ -130,6 +123,28 @@
 <script th:src="@{/assets/js/vertical-layout.min.js} "></script>
 <script th:src="@{/assets/js/jquery.mCustomScrollbar.concat.min.js}"></script>
 <script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
+
+<script>
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    var user = getCookie("UserInfo");
+    $('#userName').text("Student : " + user.split("/")[0] + " " + user.split("/")[1]);
+    $('#userName1').text("Student : " + user.split("/")[0] + " " + user.split("/")[1]);
+</script>
 </body>
 
 </html>

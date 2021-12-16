@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class LoginController {
     //Login oldukdan sonra sayfa yönlendirme işlemi yapar
     //Login Kontrolü yapılır
     @PostMapping(value = "/postlogin")
-    public String login(@ModelAttribute LoginDto loginDto, HttpSession session) {
+    public String login(@ModelAttribute LoginDto loginDto, HttpSession session, HttpServletResponse response) {
         if (loginDto.getRole().equals("student")) {
             List<StudentsModel> studentList = studentsService.getAllStudents();
             for (StudentsModel studentsModel : studentList) {
@@ -67,12 +69,13 @@ public class LoginController {
     }
 
     @GetMapping(value = "/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/login/getLogin";
     }
 
-
-
-
+    @GetMapping(value = "/Authorization")
+    public String getAuthErrorPage() {
+        return "authErrorPage";
+    }
 }
