@@ -40,6 +40,8 @@ public class LoginController {
     //Login Kontrolü yapılır
     @PostMapping(value = "/postlogin")
     public String login(@ModelAttribute LoginDto loginDto, HttpSession session, HttpServletResponse response) {
+
+
         if (loginDto.getRole().equals("student")) {
             List<StudentsModel> studentList = studentsService.getAllStudents();
             for (StudentsModel studentsModel : studentList) {

@@ -38,11 +38,17 @@ public class StudentController {
             String name = studentSession.getName() +"/"+ studentSession.getSurName() ;
             //add cookie to response
             Cookie cookie1 = new Cookie("UserInfo",String.valueOf( name));
-            cookie1.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+            cookie1.setMaxAge(1 * 24 * 60 * 60); // expires in 1 days
             cookie1.setSecure(false);
             cookie1.setHttpOnly(false);
             response.addCookie(cookie1);
 
+            //add cookie to response
+            Cookie cookie2 = new Cookie("Role", "Student");
+            cookie2.setMaxAge(1 * 24 * 60 * 60); // expires in 1 days
+            cookie2.setSecure(false);
+            cookie2.setHttpOnly(false);
+            response.addCookie(cookie2);
 
             response.setContentType("text/html;charset=UTF-8");
             StudentsModel studentModel = studentsService.getStudentById(studentSession.getStudentId());

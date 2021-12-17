@@ -41,13 +41,20 @@ public class TeacherController {
         TeachersModel teachersModel = (TeachersModel) request.getSession().getAttribute("teacher");
         if (teachersModel != null) {
 
-            String name = teachersModel.getName() +"/"+ teachersModel.getSurName() ;
+            String name = teachersModel.getName() ;
             //add cookie to response
             Cookie cookie1 = new Cookie("UserInfo",String.valueOf( name));
-            cookie1.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+            cookie1.setMaxAge(1 * 24 * 60 * 60); // expires in 7 days
             cookie1.setSecure(false);
             cookie1.setHttpOnly(false);
             response.addCookie(cookie1);
+
+            //add cookie to response
+            Cookie cookie2 = new Cookie("Role", "Teacher");
+            cookie2.setMaxAge(1 * 24 * 60 * 60); // expires in 1 days
+            cookie2.setSecure(false);
+            cookie2.setHttpOnly(false);
+            response.addCookie(cookie2);
 
             //bu öğretmene ait öğrenci infosunu aldık
             List<StudentInfoModel> list = studentInfoService.getAllStudentInfo().stream().filter(x -> x.getTeacherId() == (teachersModel.getTeacherId())).collect(Collectors.toList());

@@ -4,7 +4,6 @@ import com.karaman.schoolmanagmentsystem.dto.*;
 import com.karaman.schoolmanagmentsystem.model.*;
 import com.karaman.schoolmanagmentsystem.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,20 +38,26 @@ public class ManagementController {
     public String managementHomePage(Model model, HttpServletResponse response, HttpServletRequest request) {
 
         try {
-
             ManagerModel sessionAdmin = (ManagerModel) request.getSession().getAttribute("admin");
             if (sessionAdmin != null) {
                 //add cookie to response
                 Cookie cookie1 = new Cookie("UserInfo", sessionAdmin.getManagerName());
-                cookie1.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+                cookie1.setMaxAge(1 * 24 * 60 * 60); // expires in 1 days
                 cookie1.setSecure(false);
                 cookie1.setHttpOnly(false);
                 response.addCookie(cookie1);
 
+                //add cookie to response
+                Cookie cookie2 = new Cookie("Role", "Manager");
+                cookie2.setMaxAge(1 * 24 * 60 * 60); // expires in 1 days
+                cookie2.setSecure(false);
+                cookie2.setHttpOnly(false);
+                response.addCookie(cookie2);
+
                 List<StudentsModel> studentsModelList = studentsService.getAllStudents();
                 studentsModelList = studentsService.getAllStudents();
                 model.addAttribute("studentsModelList", studentsModelList);
-                model.addAttribute("deneme", "deneme");
+
                 return "managementStudentCreate";
             } else {
                 return "redirect:/login/Authorization";
