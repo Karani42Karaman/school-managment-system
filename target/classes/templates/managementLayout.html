@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <title>Management </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Favicon icon -->
+    <link rel="icon" th:href="@{/assets/images/favicon.ico}" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap/css/bootstrap.min.css}">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/icon/themify-icons/themify-icons.css}">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/icon/icofont/css/icofont.css}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/icon/font-awesome/css/font-awesome.min.css}">
+    <!-- waves.css -->
+    <link rel="stylesheet" th:href="@{/assets/pages/waves/css/waves.min.css}" type="text/css" media="all">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+</head>
+<body>
+
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+        <nav class="navbar header-navbar pcoded-header">
+            <div class="navbar-wrapper">
+                <div class="navbar-logo" style="background: #eea236">
+                    <div style="font-weight:bold;">Management Page</div>
+                    <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                        <i class="ti-menu"></i>
+                    </a>
+                    <a class="mobile-options waves-effect waves-light">
+                        <i class="ti-more"></i>
+                    </a>
+                </div>
+                <div class="navbar-container container-fluid">
+                    <ul class="nav-right">
+                        <li class="user-profile header-notification">
+                            <a href="#!" class="waves-effect waves-light">
+                                <img th:src="@{/assets/images/avatar-4.jpg}" class="img-radius"
+                                     alt="User-Profile-Image">
+                                <span id="userName"></span>
+                                <i class="ti-angle-down"></i>
+                            </a>
+                        <li class="waves-effect waves-light">
+                            <a th:href="@{/login/logout}">
+                                <i class="ti-layout-sidebar-left"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <nav class="pcoded-navbar">
+                    <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                    <div class="pcoded-inner-navbar main-menu">
+                        <div class="">
+                            <div class="main-menu-header">
+                                <img class="img-80 img-radius" th:src="@{/assets/images/avatar-4.jpg}"
+                                     alt="User-Profile-Image">
+                                <div class="user-details">
+                                    <span id="userName1"><i class="fa fa-caret-down"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-15 p-b-0">
+                            <form class="form-material">
+                                <div class="form-group form-primary">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label"><i class="fa fa-search m-r-10"></i>Search Friend</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Students</div>
+                        <ul class="pcoded-item pcoded-left-item">
+                            <li class="">
+                                <a th:href="@{/management/getManagemetPage}" class="waves-effect waves-dark">
+                                    <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Students</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Teachers</div>
+                        <ul class="pcoded-item pcoded-left-item">
+                            <li class="">
+                                <a th:href="@{/management/getTeacherPage}" class="waves-effect waves-dark">
+                                    <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Teachers</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Lessons</div>
+                        <ul class="pcoded-item pcoded-left-item">
+                            <li class="">
+                                <a th:href="@{/management/getLessonPage}" class="waves-effect waves-dark">
+                                    <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Lessons</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="pcoded-content">
+                    <!-- Page-content start -->
+                    <div layout:fragment="mycontent">
+                    </div>
+                    <!-- Page-content end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Required Jquery -->
+<script type="text/javascript" th:src="@{/assets/js/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/popper.js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap/js/bootstrap.min.js}"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" th:src="@{/assets/js/jquery-slimscroll/jquery.slimscroll.js} "></script>
+<!-- modernizr js -->
+<script type="text/javascript" th:src="@{/assets/js/SmoothScroll.js}"></script>
+<script th:src="@{/assets/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+<!-- waves js -->
+<script th:src="@{/assets/pages/waves/js/waves.min.js}"></script>
+
+<!-- Accordion js -->
+<script type="text/javascript" th:src="@{/assets/pages/accordion/accordion.js}"></script>
+<!-- Custom js -->
+<script th:src="@{/assets/js/pcoded.min.js}"></script>
+<script th:src="@{/assets/js/vertical-layout.min.js} "></script>
+<script th:src="@{/assets/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
+
+
+
+<script>
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    var user = getCookie("UserInfo");
+    $('#userName').text("Manager : " + user.split("/")[0]);
+    $('#userName1').text("Manager : " + user.split("/")[0]);
+
+</script>
+</body>
+
+</html>

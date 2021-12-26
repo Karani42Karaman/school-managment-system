@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="managementLayout">
+
+<head>
+    <title>Management Update Student </title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+<div layout:fragment="mycontent">
+    <!-- Create HTML registration form -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+                <!-- success message -->
+                <div th:if="${param.success}">
+                    <div class="alert alert-info">You've successfully registered
+                        to our awesome app!
+                    </div>
+                </div>
+
+                <h1>Teacher Update</h1>
+
+                <form th:action="@{/management/postTeacherUpdate}" method="POST" th:object="${teachersDtoModel.teachersModel}">
+
+                    <div class="form-group">
+                        <label> Teacher Tc Number </label>
+                        <input
+                                type="number"
+                                name="tcNumber"
+                                th:value="*{tcNumber}"
+                                class="form-control"
+                                required autofocus="autofocus"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label> Teacher Name </label>
+                        <input
+                                type="text"
+                                name="name"
+                                th:value="*{name}"
+                                class="form-control"
+                                required autofocus="autofocus"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label> Teacher SurName </label>
+                        <input
+                                type="text"
+                                name="surName"
+                                th:value="*{surName}"
+                                class="form-control"
+                                required autofocus="autofocus"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label> Teacher Mail </label>
+                        <input
+                                type="text"
+                                name="mail"
+                                th:value="*{mail}"
+                                class="form-control"
+                                required autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <label> Teacher Password </label>
+                        <input
+                                type="text"
+                                name="password"
+                                th:value="*{password}"
+                                class="form-control"
+                                required autofocus="autofocus"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Lesson Select</label>
+                        <select class="form-control" name="lessonId" >
+                            <option id="editInfo" th:each="operator : ${teachersDtoModel.lessonsModelList}"
+                                    th:value="${operator.lessonId}"
+                                    th:text="${operator.lessonName  }"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label> Teacher Phone Number </label>
+                        <input
+                                type="number"
+                                name="phoneNumber"
+                                th:value="*{phoneNumber}"
+                                class="form-control"
+                                required autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <input
+                                type="hidden"
+                                name="gender"
+                                th:value="*{gender}"
+                                class="form-control"
+                                autofocus="autofocus"/>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input
+                                type="hidden"
+                                name="recordTime"
+                                th:value="*{recordTime}"
+                                class="form-control"
+                                required autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <input
+                                type="hidden"
+                                name="teacherId"
+                                th:value="*{teacherId}"
+                                class="form-control"
+                                required autofocus="autofocus"/>
+                    </div>
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Update Teacher</button>
+                        <span><a th:href="@{/management/getTeacherPage}">Previous</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration and Login App</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form th:action="@{/login/postlogin}" method="POST">
+                <div class="mb-4 text-center">
+                    <img height="30%" width="30%" src="/img/school_icon.png">
+                    <h1 class="h3" style="color:#F9C032;">School Management System</h1>
+                    <br/> <br/>
+                </div>
+                <!-- error message -->
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Invalid username or
+                        password.
+                    </div>
+                </div>
+                <!-- logout message -->
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">You have been logged out.</div>
+                </div>
+                <div class="form-group">
+                    <label for="tcNo"> Tc Number </label> :
+                    <input type="text" class="form-control" id="tcNo" name="tcNo"
+                           placeholder="Tc Number" autofocus="autofocus">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>: <input type="password"
+                                                                   id="password" name="password" class="form-control"
+                                                                   placeholder="Enter Password"/>
+                </div>
+                <div class="form-group">
+                    <label for="role"> Role </label> :
+                    <select name="role" id="role" class="form-control">
+                        <option value="admin">admin</option>
+                        <option value="student">student</option>
+                        <option value="teacher">teacher</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" name="login-submit" id="login-submit"
+                                   class="form-control btn btn-primary" value="Log In"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
